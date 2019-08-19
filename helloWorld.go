@@ -2,6 +2,19 @@ package main
 
 import "fmt"
 import "HelloWorld/utility"
+import "HelloWorld/packages/employee"
+
+// type Employee struct {
+// 	firstName string
+// 	lastName string
+// 	age int
+// 	salary int
+// 	Address
+// }
+
+// type Address struct {
+// 	city, state string
+// }
 
 func calculate(price int, amount int) (int, int) {
 	return price * amount, amount
@@ -41,7 +54,7 @@ func getStringFromRune(runes []rune) {
 
 func main() {
 	fmt.Println("Hi there, im go newbie !!")
-
+	
 	// variable
 	var age int
 	fmt.Println("first variable: ", age)
@@ -56,6 +69,7 @@ func main() {
 
 	//function from package
 	fmt.Println(utility.ShowJob())
+	employee.SamplePrint()
 
 	//conditions
 	num := 10
@@ -190,15 +204,16 @@ func main() {
 	fmt.Printf("\n")
 
 	//POINTER
+
 	//& được sử dụng để lấy địa chỉ của một biến.
 	fmt.Println("POINTER")
 	fmt.Printf("\n")
-	b := 255
-	fmt.Println("address of b is: ", &b)
-	// var a *int = &b
+	b := 1989
 	var a = &b
+	fmt.Println("address of b is: ", &b)
     fmt.Printf("Type of a is %T\n", a)
-	fmt.Println("address of b is", a)
+	fmt.Println("address of pointer a is", a)
+	fmt.Println("reference value of pointer is", *a)
 	//nil pointer
 	m := 25
     var n *int
@@ -209,5 +224,43 @@ func main() {
 		fmt.Println("referenced value", *n)
 		*n++
 		fmt.Println("changed value at pointer:", m)
-    }
+	}
+	
+	//STRUCT
+	fmt.Println("STRUCT")
+	fmt.Println("\n")
+	//create struct
+	
+	emp1 := employee.Employee {
+		FirstName : "first name",
+		LastName: "last name",
+		Age: 20,
+		Salary: 2000,
+	}
+
+	//viết method trực tiếp trên các model để có các hành vi tương tự như class
+	fmt.Println("display emp1 name")
+	emp1.DisplayEmployeeName()
+	emp1.ChangeFirstName("new emp1 first name")
+	emp1.DisplayEmployeeName()
+	
+
+	emp1.Address = employee.Address {"sample city", "sample state"}
+	fmt.Println(emp1)
+	fmt.Println(emp1.Address.City, emp1.Address.State)
+	fmt.Println("emp1 name:", emp1.FirstName, emp1.LastName)
+
+	emp2 := employee.Employee {"emp2 first" , "emp2 last", 22, 3000, employee.Address {"next city", "next State"}}
+	fmt.Println(emp2)
+
+	var emp3 employee.Employee
+	emp3.FirstName = "emp3 first"
+	emp3.LastName = "emp3 last"
+	fmt.Println(emp3)
+
+	//pointer to struct
+	empPointer := &emp1
+	fmt.Println("pointer name value: ", (*empPointer).FirstName)
+	fmt.Println("OR")
+	fmt.Println("pointer name value: ", (empPointer).FirstName)
 }
